@@ -1,7 +1,7 @@
 # Dockerfile
 
 # PHP ve Composer'ı içeren bir temel imaj kullanın
-FROM php:7.4-fpm
+FROM php:8.2-fpm
 
 # Çalışma dizinini ayarla
 WORKDIR /var/www/html
