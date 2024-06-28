@@ -2,63 +2,80 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
 {
+
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view ('schools.index');
+        $schools = School::all();
+        return view('schools.index', compact('schools'));
     }
 
     /**
      * Show the form for creating a new resource.
-     */
+     */  // Show the form for creating a new resource.
     public function create()
     {
-        //
+        return view('schools.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
+    // Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'address' => 'nullable|string',
+        ]);
+
+        School::create($request->all());
+
+        return redirect()->route('schools.index')->with('success', 'School created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    // Display the specified resource.
+    public function show(School $school)
     {
-        //
+        return view('schools.show', compact('school'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Show the form for editing the specified resource.
+    public function edit(School $school)
     {
-        //
+        return view('schools.edit', compact('school'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Update the specified resource in storage.
+    public function update(Request $request, School $school)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'address' => 'nullable|string',
+        ]);
+
+        $school->update($request->all());
+
+        return redirect()->route('schools.index')->with('success', 'School updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // Remove the specified resource from storage.
+    public function destroy(School $school)
     {
-        //
+        $school->delete();
+
+        return redirect()->route('schools.index')->with('success', 'School deleted successfully.');
     }
 }

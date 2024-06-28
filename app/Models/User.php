@@ -27,7 +27,20 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
+
+    // İlişkiyi tanımlama
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    // isAdmin metodu
+    public function isAdmin()
+    {
+        return $this->role && $this->role->role_id === 1;
+    }
 
     /**
      * The attributes that should be hidden for serialization.
