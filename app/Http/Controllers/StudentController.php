@@ -13,6 +13,7 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
+
         $students = Student::where('school_id', $request->user()->school_id)->get();
         return view('students.index', compact('students'));
     }
