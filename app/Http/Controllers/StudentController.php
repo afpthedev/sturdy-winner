@@ -8,15 +8,11 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
-    {
-
-        $students = Student::where('school_id', $request->user()->school_id)->get();
-        return view('students.index', compact('students'));
-    }
+    public function index()
+{
+    $students = Student::with('school')->get();
+    return view('students.index', compact('students'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -32,21 +28,21 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:students',
             'date_of_birth' => 'required|date',
             'enrollment_date' => 'required|date',
             'school_id' => 'required',
+            'phone_number' => 'nullable|string',
+            'address' => 'nullable|string',
         ]);
 
-        Student::create($request->all());
+        Student::create($validated);
 
         return redirect()->route('students.index')->with('success', 'Student created successfully.');
     }
-
-
 
     /**
      * Display the specified resource.
@@ -68,19 +64,20 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Student $student)
     {
-        $request->validate([
+        $validated = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email|unique:students,email,' . $id,
+            'email' => 'required|email|unique:students,email,' . $student->id,
             'date_of_birth' => 'required|date',
             'enrollment_date' => 'required|date',
             'school_id' => 'required',
+            'phone_number' => 'nullable|string',
+            'address' => 'nullable|string',
         ]);
 
-        $student = Student::find($id);
-        $student->update($request->all());
+        $student->update($validated);
 
         return redirect()->route('students.index')->with('success', 'Student updated successfully.');
     }
@@ -94,5 +91,4 @@ class StudentController extends Controller
 
         return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
     }
-
 }

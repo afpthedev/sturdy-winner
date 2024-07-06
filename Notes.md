@@ -7,6 +7,11 @@
     ## Laravel/breeze v: 2.1
     ## Laravel/PHPUnit
 
+
+## Laravel Process
+    1) Önce Migration ->Model -> Controller -> .blade.php -> Api çıktısı
+
+
 ## İlk Yapılacak İşlemler 
 
     1)   docker-compose up -d
@@ -14,8 +19,10 @@
 
 # Oluşturulan Sınıflar Ve Karşılıkları 
 ### Talabe ###
-    School = Kurslarımız 
+    ** School = Kurslarımız 
     ** Student ** = Öğrencilerimiz
     ** Grade ** = Notlarımız
     ** Enrollment ** = Kayıtlarımız
     ** Course ** = Derslerimiz
+
+

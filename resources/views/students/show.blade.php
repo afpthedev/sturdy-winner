@@ -8,6 +8,15 @@
                     <div class="card-header">Student Details</div>
 
                     <div class="card-body">
+                        @if ($student->profile_photo)
+                            <div class="text-center mb-3">
+                                <img src="{{ asset('images/' . $student->profile_photo) }}" alt="Profile Photo" class="rounded-circle" style="width: 150px; height: 150px;">
+                            </div>
+                        @else
+                            <div class="text-center mb-3">
+                                <p>No profile photo available.</p>
+                            </div>
+                        @endif
                         <table class="table">
                             <tr>
                                 <th>ID</th>

@@ -8,7 +8,7 @@
                     <div class="card-header">Add New Student</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('students.store') }}">
+                        <form method="POST" action="{{ route('students.store') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group">
@@ -48,11 +48,16 @@
 
                             <div class="form-group">
                                 <label for="school_id">School</label>
-                                <select class="form-control" id="school_id" name="school_id" required>
+                                <select class="form-control" id="school_id" name="school_id">
                                     @foreach($schools as $school)
                                         <option value="{{ $school->id }}">{{ $school->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profile_photo">Profile Photo</label>
+                                <input type="file" name="profile_photo" class="form-control">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>

@@ -18,7 +18,7 @@ protected $fillable = [
         'date_of_birth',
         'enrollment_date',
         'status',
-        'school_id',
+        'school_id'
     ];
 
     public function school() // Define the relationship between the Student and School models

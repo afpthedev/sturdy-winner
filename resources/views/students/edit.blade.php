@@ -56,6 +56,7 @@
                                 </select>
                             </div>
 
+
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <a href="{{ route('students.index') }}" class="btn btn-secondary">Back</a>
                         </form>
