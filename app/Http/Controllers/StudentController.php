@@ -8,11 +8,35 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function indexAll()
 {
     $students = Student::with('school')->get();
     return view('students.index', compact('students'));
 }
+    public function index(Request $request)
+    {
+        $query = Student::query();
+
+        if ($request->filled('first_name')) {
+            $query->where('first_name', 'like', '%' . $request->first_name . '%');
+        }
+
+        if ($request->filled('last_name')) {
+            $query->where('last_name', 'like', '%' . $request->last_name . '%');
+        }
+
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+
+        if ($request->filled('school_id')) {
+            $query->where('school_id', $request->school_id);
+        }
+
+        $students = $query->with('school')->get();
+        return view('students.index', compact('students'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
